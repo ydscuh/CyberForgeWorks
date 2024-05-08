@@ -1,10 +1,10 @@
-function mergeKLists(lists) {
-  if (lists.length === 0) return null;
-  while (lists.length > 1) {
-    const first = lists.shift();
-    const second = lists.shift();
-    const merged = mergeTwoLists(first, second);
-    lists.push(merged);
+function coinChange(coins, amount) {
+  const dp = new Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+  for (const coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+    }
   }
-  return lists[0];
+  return dp[amount] > amount ? -1 : dp[amount];
 }
